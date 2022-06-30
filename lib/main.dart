@@ -1,12 +1,12 @@
-import 'package:appleid_dashboard/router/routes.dart';
+import 'package:appleid_dashboard/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'side_menu/menu_item_type.dart';
+
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  final router = AppRouter.router;
-
-  MyApp({super.key});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.fromSeed(seedColor: Colors.blue);
@@ -18,12 +18,10 @@ class MyApp extends StatelessWidget {
       bodyColor: colorScheme.onSurface,
       displayColor: colorScheme.onSurface,
     );
-    return MaterialApp.router(
-      routerDelegate: router.routerDelegate,
-      routeInformationParser: router.routeInformationParser,
-      routeInformationProvider: router.routeInformationProvider,
+    return MaterialApp(
       title: 'Manage your Apple ID',
       theme: theme.copyWith(textTheme: textTheme),
+      home: HomePage(tab: MenuItemType.security),
     );
   }
 }

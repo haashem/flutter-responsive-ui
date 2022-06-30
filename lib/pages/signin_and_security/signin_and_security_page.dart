@@ -1,5 +1,4 @@
 import 'package:appleid_dashboard/shared/page_scaffold.dart';
-import 'package:appleid_dashboard/shared/responsive.dart';
 import 'package:flutter/material.dart' hide Card;
 
 import '../../../shared/components/card.dart';
@@ -19,11 +18,7 @@ class _SignInAndSecurityPageState extends State<SignInAndSecurityPage> {
       subtitle:
           'Manage settings related to signing in to your account, account security, as well as how to recover your data when you’re having trouble signing in.',
       child: Center(
-        child: Responsive(
-          mobile: _BelowDesktopLayout(),
-          tablet: _BelowDesktopLayout(),
-          desktop: _DesktopLayout(),
-        ),
+        child: _DesktopLayout(),
       ),
     );
   }

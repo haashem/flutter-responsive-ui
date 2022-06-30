@@ -36,7 +36,7 @@ class InfoAvatar extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'hashem.abounajmi@emaratech.ae',
+          'hashemp206@yahoo.com',
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
               color:
                   Theme.of(context).colorScheme.onBackground.withOpacity(0.7)),
