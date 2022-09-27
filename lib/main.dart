@@ -1,7 +1,5 @@
-import 'package:appleid_dashboard/pages/home_page.dart';
+import 'package:appleid_dashboard/router/routes.dart';
 import 'package:flutter/material.dart';
-
-import 'side_menu/menu_item_type.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,15 +11,16 @@ class MyApp extends StatelessWidget {
     final theme = ThemeData.from(
       colorScheme: colorScheme,
     );
-
     final textTheme = theme.textTheme.apply(
       bodyColor: colorScheme.onSurface,
       displayColor: colorScheme.onSurface,
     );
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: AppRouter.router,
       title: 'Manage your Apple ID',
-      theme: theme.copyWith(textTheme: textTheme),
-      home: HomePage(tab: MenuItemType.security),
+      theme: theme.copyWith(
+          textTheme: textTheme,
+          iconTheme: IconThemeData(color: colorScheme.primary)),
     );
   }
 }

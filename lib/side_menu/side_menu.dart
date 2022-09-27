@@ -7,7 +7,9 @@ import 'side_menu_item.dart';
 
 class SideMenu extends StatefulWidget {
   final ValueChanged<int> onPressed;
-  const SideMenu({Key? key, required this.onPressed}) : super(key: key);
+  final int selectedIndex;
+  const SideMenu({Key? key, this.selectedIndex = 0, required this.onPressed})
+      : super(key: key);
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -22,7 +24,19 @@ class _SideMenuState extends State<SideMenu> {
     MenuItemType.devices.name: 'Devices',
     MenuItemType.privacy.name: 'Privacy'
   };
-  int selectedIndex = 0;
+  late int selectedIndex;
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.selectedIndex;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    selectedIndex = widget.selectedIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

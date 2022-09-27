@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Card;
 
 import '../../../shared/components/card.dart';
 import '../../../shared/page_scaffold.dart';
+import '../../shared/responsive.dart';
 
 class PersonalInformationPage extends StatelessWidget {
   const PersonalInformationPage({Key? key}) : super(key: key);
@@ -13,7 +14,11 @@ class PersonalInformationPage extends StatelessWidget {
       subtitle:
           'Manage your personal information, including phone numbers and email addresses where you can be reached.',
       child: Center(
-        child: _DesktopLayout(),
+        child: Responsive(
+          mobile: _BelowDesktopLayout(),
+          tablet: _BelowDesktopLayout(),
+          desktop: _DesktopLayout(),
+        ),
       ),
     );
   }
