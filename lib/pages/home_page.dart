@@ -1,6 +1,9 @@
 import 'package:appleid_dashboard/side_menu/menu_item_type.dart';
 import 'package:flutter/material.dart' hide AppBar;
+import 'package:go_router/go_router.dart';
 
+import '../router/routes.dart';
+import '../shared/responsive.dart';
 import '../side_menu/side_menu.dart';
 import 'app_bar.dart';
 import 'personal_information.dart/personal_information_page.dart';
@@ -67,17 +70,37 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SideMenu(
-                    onPressed: ((index) {
-                      _selectedIndex = index;
-                    }),
-                  ),
-                  const SizedBox(
-                    width: 128,
-                  ),
+                  ...() {
+                    return Responsive.isMobile(context) == false
+                        ? [
+                            SideMenu(
+                              onPressed: ((index) {
+                                _selectedIndex = index;
+                                switch (index) {
+                                  case 0:
+                                    context.goNamed(
+                                        Routes.signInAndSecurity.name);
+                                    break;
+                                  case 1:
+                                    context.goNamed(
+                                        Routes.personalInformation.name);
+                                    break;
+                                  case 2:
+                                    context
+                                        .goNamed(Routes.paymentMethods.name);
+                                    break;
+                                }
+                              }),
+                            ),
+                            const SizedBox(
+                              width: 128,
+                            )
+                          ]
+                        : [];
+                  }(),
                   Flexible(
                     child: SizedBox(
-                      width: 708,
+                      width: Responsive.isDesktop(context) ? 708 : 320,
                       child: IndexedStack(
                           index: _selectedIndex,
                           children: const [

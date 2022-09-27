@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../layout_transition/animated_layout.dart';
+import '../responsive.dart';
 
 class Modal extends StatelessWidget {
   final Widget child;
@@ -18,7 +19,8 @@ class Modal extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedLayout(
       duration: const Duration(milliseconds: 250),
-      layoutState: LayoutState.close,
+      layoutState:
+          Responsive.isMobile(context) ? LayoutState.open : LayoutState.close,
       fromBuilder: (context) => _NonMobileModal(
           icon: icon,
           title: title,
@@ -31,7 +33,6 @@ class Modal extends StatelessWidget {
           child: child),
     );
   }
-
 }
 
 class _MobileModal extends StatelessWidget {
