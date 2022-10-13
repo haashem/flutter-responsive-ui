@@ -1,8 +1,8 @@
-import 'package:appleid_dashboard/side_menu/info_avatar.dart';
+import 'package:appleid_dashboard/menu/side_menu/info_avatar.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import 'menu_item_type.dart';
+import '../view_model.dart';
 import 'side_menu_item.dart';
 
 class SideMenu extends StatefulWidget {
@@ -16,14 +16,6 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  final sections = {
-    MenuItemType.security.name: 'Sign-In and Security',
-    MenuItemType.information.name: 'Personal Information',
-    MenuItemType.payment.name: 'Payment Methods',
-    MenuItemType.family.name: 'Family Sharing',
-    MenuItemType.devices.name: 'Devices',
-    MenuItemType.privacy.name: 'Privacy'
-  };
   late int selectedIndex;
   @override
   void initState() {
