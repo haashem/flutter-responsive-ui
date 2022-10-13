@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../router/routes.dart';
 import '../shared/responsive.dart';
-import '../side_menu/side_menu.dart';
+import '../menu/side_menu/side_menu.dart';
 import 'app_bar.dart';
 import 'personal_information.dart/personal_information_page.dart';
 import 'signin_and_security/signin_and_security_page.dart';
@@ -41,6 +41,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late int _selectedIndex;
 
+  final double appbarHeight = 55;
   @override
   void initState() {
     super.initState();
@@ -55,66 +56,73 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Material(
       color: Theme.of(context).colorScheme.background,
       child: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const AppBar(),
-              const SizedBox(
-                height: 40,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ...() {
-                    return Responsive.isMobile(context) == false
-                        ? [
-                            SideMenu(
-                              selectedIndex: _selectedIndex,
-                              onPressed: ((index) {
-                                _selectedIndex = index;
-                                switch (index) {
-                                  case 0:
-                                    context
-                                        .goNamed(Routes.signInAndSecurity.name);
-                                    break;
-                                  case 1:
-                                    context.goNamed(
-                                        Routes.personalInformation.name);
-                                    break;
-                                  case 2:
-                                    context.goNamed(Routes.paymentMethods.name);
-                                    break;
-                                }
-                              }),
-                            ),
-                            const SizedBox(
-                              width: 128,
-                            )
-                          ]
-                        : [];
-                  }(),
-                  Flexible(
-                    child: SizedBox(
-                      width: Responsive.isDesktop(context) ? 708 : 320,
-                      child: IndexedStack(
-                          index: _selectedIndex,
-                          children: const [
-                            SignInAndSecurityPage(),
-                            PersonalInformationPage()
-                          ]),
+        //minimum: const EdgeInsets.symmetric(horizontal: 16),
+        child: Stack(children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: appbarHeight,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ...() {
+                      return Responsive.isMobile(context) == false
+                          ? [
+                              SideMenu(
+                                selectedIndex: _selectedIndex,
+                                onPressed: onItemTapped,
+                              ),
+                              const SizedBox(
+                                width: 128,
+                              )
+                            ]
+                          : [];
+                    }(),
+                    Flexible(
+                      child: SizedBox(
+                        width: Responsive.isDesktop(context) ? 708 : 320,
+                        child: IndexedStack(
+                            index: _selectedIndex,
+                            children: const [
+                              SignInAndSecurityPage(),
+                              PersonalInformationPage()
+                            ]),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
+          AppBar(
+            onItemTapped: onItemTapped,
+          )
+        ]),
       ),
     );
+  }
+
+  void onItemTapped(int index) {
+    _selectedIndex = index;
+    switch (index) {
+      case 0:
+        context.goNamed(Routes.signInAndSecurity.name);
+        break;
+      case 1:
+        context.goNamed(Routes.personalInformation.name);
+        break;
+      case 2:
+        context.goNamed(Routes.paymentMethods.name);
+        break;
+    }
   }
 }
